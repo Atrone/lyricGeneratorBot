@@ -1,0 +1,44 @@
+hmmmmmmmmmmm
+
+
+how will this work?
+
+chat bot: input = artist name
+
+then grab all lyrics for artist. let's start there
+
+
+ok..... we're going to have to add artists to our repitorire in mongo
+
+limit to 100 songs per artist.
+
+
+More refined:
+
+Chat Bot Commands:
+ /randLyric Baby Keem
+	(Checks if artist exists in DB, if not, exit, else: aggregate Artist then $sample 1 lyric; return lyric)
+ /addArtist Baby Keem 
+	(Checks if artist exists in DB, if so, exit, else: stores N rows of Artist:Lyric key:value pairs)
+
+
+Even more refined:
+ /addArtist Baby Keem
+	(if not mymongo.check_if...("Baby Keem"): myartist.populate_lyrics_for_artist(); mymongo.insert_values_under_key(...))
+
+
+
+myartist = MyArtist(artist="Baby Keem", max_songs=1)
+myartist.populate_lyrics_for_artist()
+
+mymongo = MyMongo(client_string=
+"mongodb+srv://atrony:Drt83711!@cluster0.avluf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+mymongo.insert_values_under_key("genius","lyricsByArtist","lyric",myartist.lyrics_for_artist,"artist",myartist.artist_name)
+
+
+ok we're done the chat bot.
+
+Next step: Web app.
+	First mode:
+		Guess the song.
